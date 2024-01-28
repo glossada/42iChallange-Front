@@ -1,0 +1,45 @@
+@keyframes myAnim {
+	0% {
+		opacity: 0;
+		transform: translateY(-50px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.container{
+    background-color: rgba(34, 52, 83, 0.658);
+    box-shadow: 0px 5px 10px 1px #0d0d0d;
+    animation: myAnim 2s ease 0s 1 normal forwards;
+    
+}
+
+.customBrand {
+    font-size: xx-large;
+    font-weight: bold;
+    color: beige;
+    display: flex; /* Utilizamos flexbox para centrar verticalmente */
+    align-items: center; /* Centramos verticalmente */
+    margin-top: 10px;
+}
+
+.links {
+    font-size: larger;
+    color: beige;
+    text-decoration: none;
+    margin-left: 50px;
+    margin-top: 10px;
+    transition: 0.1s;
+}
+
+.links:hover{
+    font-weight: bold;
+}
+
+.toggle{
+    color: beige;
+}
+
