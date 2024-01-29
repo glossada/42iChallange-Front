@@ -57,11 +57,19 @@ const [errorsPS, setErrorsPS] = useState({});
     
 
     const queryString = new URLSearchParams({ numbers: parameterPS.numbers, targetSum: parameterPS.targetSum }).toString();
+    const numberString = parameterPS.numbers.join(', ');
+    
 
     const {data}= await axios.get(`http://localhost:3001/pairwithsum?${queryString}`)
-    setResultPS(data);
-    setResultHistoryPS(prevResultHistory => prevResultHistory.concat(data));
-    setParametersPS({ ...parameterPS, numbers: [], number:'' });
+    const resultString = data.join(', ');
+    const historyPs = {
+      numbers:numberString,
+      targetSum:parameterPS.targetSum,
+      result:resultString
+    }
+    setResultPS(resultString);
+    setResultHistoryPS(prevResultHistory => prevResultHistory.concat(historyPs));
+    setParametersPS({ ...parameterPS, numbers: [], number:'', targetSum:'' });
 
   }
 
@@ -73,6 +81,7 @@ const [errorsPS, setErrorsPS] = useState({});
 })
 
 const [resultNCC, setResultNCC] = useState([]);
+const [resultHistoryNCC, setResultHistoryNCC] = useState([]);
 const [errorsNCC, setErrorsNCC] = useState({});
 
   const handleChangeNCC = (event) =>{
@@ -88,7 +97,11 @@ const [errorsNCC, setErrorsNCC] = useState({});
       const { coin, coins } = parameterNCC;
 
     if (!isNaN(coin) && coin.trim() !== '') {
-      // Agrega el número actual al arreglo de números
+      if(coin<0){
+        alert('The coin cant have negative value');
+        return;
+      }
+
       setParametersNCC({ ...parameterNCC, coins: [...coins, Number(coin)], coin: '' });
     }
   }
@@ -112,9 +125,21 @@ const [errorsNCC, setErrorsNCC] = useState({});
     
 
     const queryString = new URLSearchParams({ coins: parameterNCC.coins }).toString();
-
-    const {data}= await axios.get(`http://localhost:3001/nonconstructiblechange?${queryString}`)
+    const numberString = parameterNCC.coins.join(', ');
+    try {
+      const {data}= await axios.get(`http://localhost:3001/nonconstructiblechange?${queryString}`)
+    const historyNCC = {
+      numbers:numberString,
+      result:data
+    }
     setResultNCC(data);
+    setResultHistoryNCC(prevResultHistory => prevResultHistory.concat(historyNCC));
+    setParametersNCC({ ...parameterNCC, coins: [], coin:''});
+    } catch (error) {
+      setResultNCC('The are negative values in the array');
+      setParametersNCC({ ...parameterNCC, coins: [], coin:''});
+    }
+
   }
 
 
@@ -130,6 +155,16 @@ const [errorsNCC, setErrorsNCC] = useState({});
   </TabList>
   <TabPanels>
     <TabPanel>
+      <div className={styles.containerTabContent}>
+      <div className={styles.boxTabContent}>
+      <div className={styles.content}>
+        <h3>Summary</h3>
+        <p className={styles.paragraph}>Given an array of integers, no number in this array is repeated, and an integer representing the target sum, te program will find whether there's a pair of numbers in the array that adds up to the target sum. If such pair does not exist, return an empty array.</p>
+        <h5>Intructions:</h5>
+        <div className={styles.intructionsList}>
+        <li>Enter the numbers one by one in te 'Numbers' field and click in the '+' button to add them into an array</li>
+        <li>Enter the target sum in te 'Target Sum' field and click in the 'Submit' button </li>
+        </div>
       <form onSubmit={handleSubmitPS}>
        <div>
       <label className={styles.label} htmlFor="number">Numbers: </label>
@@ -151,9 +186,24 @@ const [errorsNCC, setErrorsNCC] = useState({});
       {resultPS.length!==0 && <p className={styles.result}>Result:{resultPS}</p>}
 
       <h3>Result History:</h3>
-      {resultHistoryPS.length!==0 && <p className={styles.result}>{resultHistoryPS.join(', ')}</p>}
+      {resultHistoryPS.length!==0 && resultHistoryPS.map((item,index) =>{
+                return <li key={index}>Numbers: {item.numbers}  TgSum: {item.targetSum}  Result: {item.result}</li>
+            })}
+      </div>
+      </div>
+      </div>
     </TabPanel>
     <TabPanel>
+    <div className={styles.containerTabContent}>
+      <div className={styles.boxTabContent}>
+      <div className={styles.content}>
+      <h3>Summary</h3>
+        <p className={styles.paragraph}>Given an array of positive integers representing the values of coins in your possession, the program will returns the minimum amount of change (the minimum sum of money) that you cannot create.</p>
+        <h5>Intructions:</h5>
+        <div className={styles.intructionsList}>
+        <li>Enter the vule of coins one by one in te 'Coins' field and click in the '+' button to add them into an array</li>
+        <li>Clik in the 'Submit' button</li>
+        </div>
     <form onSubmit={handleSubmitNCC}>
        <div>
       <label className={styles.label} htmlFor="coin">Coins: </label>
@@ -171,6 +221,12 @@ const [errorsNCC, setErrorsNCC] = useState({});
       {resultNCC.length!==0 && <p className={styles.result}>Result:{resultNCC}</p>}
 
       <h3>Result History:</h3>
+      {resultHistoryNCC.length!==0 && resultHistoryNCC.map((item,index) =>{
+                return <li key={index}>Coins: {item.numbers} - Result: {item.result}</li>
+            })}
+            </div>
+            </div>
+      </div>
     </TabPanel>
   </TabPanels>
 </Tabs>

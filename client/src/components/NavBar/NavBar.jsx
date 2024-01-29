@@ -13,9 +13,9 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link className={style.links} to='/bio'>¿Quien Soy?</Link>
-            <Link className={style.links} to='/proyects'>Mis Proyectos</Link>
-            <Link className={style.links} to='/'>Inicio</Link>
+            <Link className={style.links} to='https://portfolio-chi-eosin-34.vercel.app/'>¿Who am i?</Link>
+            <Link className={style.links} to='https://www.linkedin.com/in/glossada/'>Linkedin</Link>
+            <Link className={style.links} to='https://github.com/glossada'>GitHub</Link>
             
           </Nav>
         </Navbar.Collapse>
