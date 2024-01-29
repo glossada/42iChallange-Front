@@ -12,7 +12,7 @@ function Landing() {
       <p className={styles.par}>Here you will find the resolution for the 42i Tech-Challenge</p>
       <p className={styles.par}>Each Challenge will be displayed in different Tabs. Navigate between the Tabs and try them!</p>
     </div>
-      <a href="bio" className={styles.myButton}>get started!</a>
+      <a href="main" className={styles.myButton}>get started!</a>
     </div>
   );
 }

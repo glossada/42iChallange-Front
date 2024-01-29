@@ -9,7 +9,7 @@ function NavBar() {
   return (
     <Navbar expand="lg" data-bs-theme="dark" className={style.container}>
       <Container >
-        <h1 className={style.customBrand}>Hi! Im Gabriel!</h1>
+        <h1 className={style.customBrand}>42i Challenge</h1>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

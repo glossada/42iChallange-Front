@@ -1,0 +1,64 @@
+@keyframes myAnimImage {
+	0% {
+		opacity: 0;
+		transform: scale(0.6);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+@keyframes myAnimIcon {
+	0% {
+		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+		transform: scale(1);
+	}
+
+	100% {
+		box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+		transform: scale(1.1);
+	}
+}
+
+.container{
+    background-color: rgb(34, 52, 85);
+    height: 100%;
+    margin: 0;
+    color: beige;
+}
+
+.containerTab{
+    color: beige;
+    text-decoration:none;
+    margin-top: 20px;
+}
+
+.tabs{
+    font-size: 30px !important;
+    background-color: rgb(28, 43, 71);
+}
+
+.Button{
+    border-radius: 100% !important;
+}
+
+.Button:hover {
+	background-color: beige;
+	color: #1b1e20;
+	font-weight: bold;
+	border:1px solid #1b1e20;
+}
+
+.submitButton{
+    border:1px solid beige;
+    border-radius: 5px ; 
+    background-color: rgb(34, 52, 85);
+}
+
+.submitButton:hover {
+	background-color: beige;
+	color: #1b1e20;
+	font-weight: bold;
+	border:1px solid #1b1e20;
+}
