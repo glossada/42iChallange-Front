@@ -1,10 +1,11 @@
-import React, { useState, useRef  } from 'react'
+import React, { useState } from 'react'
 import NavBar from '../../components/NavBar/NavBar'
 import styles from './Main.module.css'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { Button} from '@chakra-ui/react'
 import { validationsPS,validateAllPS,validationsNCC, validateAllNCC } from './validations'
 import axios from 'axios';
+import URL from '../../URL'
 
 
 function Main() {
@@ -28,11 +29,12 @@ const [errorsPS, setErrorsPS] = useState({});
     
   }
 
+
     const addNumbersPS = () =>{
       const { number, numbers } = parameterPS;
 
+
     if (!isNaN(number) && number.trim() !== '') {
-      // Agrega el número actual al arreglo de números
       setParametersPS({ ...parameterPS, numbers: [...numbers, Number(number)], number: '' });
     }
   }
@@ -59,8 +61,8 @@ const [errorsPS, setErrorsPS] = useState({});
     const queryString = new URLSearchParams({ numbers: parameterPS.numbers, targetSum: parameterPS.targetSum }).toString();
     const numberString = parameterPS.numbers.join(', ');
     
-
-    const {data}= await axios.get(`http://localhost:3001/pairwithsum?${queryString}`)
+    try {
+      const {data}= await axios.get(`${URL}/pairwithsum?${queryString}`)
     const resultString = data.join(', ');
     const historyPs = {
       numbers:numberString,
@@ -70,6 +72,10 @@ const [errorsPS, setErrorsPS] = useState({});
     setResultPS(resultString);
     setResultHistoryPS(prevResultHistory => prevResultHistory.concat(historyPs));
     setParametersPS({ ...parameterPS, numbers: [], number:'', targetSum:'' });
+    } catch (error) {
+      setResultPS('Check the entered parameters.');
+      setParametersPS({ ...parameterPS, numbers: [], number:'', targetSum:'' });
+    }
 
   }
 
@@ -127,7 +133,7 @@ const [errorsNCC, setErrorsNCC] = useState({});
     const queryString = new URLSearchParams({ coins: parameterNCC.coins }).toString();
     const numberString = parameterNCC.coins.join(', ');
     try {
-      const {data}= await axios.get(`http://localhost:3001/nonconstructiblechange?${queryString}`)
+      const {data}= await axios.get(`${URL}/nonconstructiblechange?${queryString}`)
     const historyNCC = {
       numbers:numberString,
       result:data
